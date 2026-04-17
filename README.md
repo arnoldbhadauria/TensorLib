@@ -28,21 +28,12 @@ A simple C++ library for performing basic matrix (tensor) operations such as add
 
 ---
 
-## 📂 Project Structure
-
-```
-TensorLib/
-│── main.cpp   # Contains implementation and usage
-```
-
----
-
 ## ⚙️ How to Compile & Run
 
 ### 🛠 Compile
 
 ```bash
-g++ main.cpp -o tensor
+g++ main.cpp Tensor.cpp -o tensor
 ```
 
 ### ▶️ Run
@@ -56,7 +47,6 @@ g++ main.cpp -o tensor
 ## 📊 Example Usage
 
 ```cpp
-Tensor t;
 
 matrix2d v = {
     {1, 2, 1, 2},
@@ -65,10 +55,10 @@ matrix2d v = {
     {4, 1, 1, 2}
 };
 
-t.printVector(v);
+Tensor::printVector(v);
 
-matrix2d inverse = t.inverseMatrix(v);
-t.printVector(inverse);
+matrix2d inverse = Tensor::inverseMatrix(v);
+Tensor::printVector(inverse);
 ```
 
 ---
@@ -87,7 +77,6 @@ t.printVector(inverse);
 * Add exception handling
 * Improve performance (use better algorithms like LU decomposition)
 * Add support for templates (generic data types)
-* Separate header (`.h`) and implementation (`.cpp`)
 * Add unit tests
 
 ---
