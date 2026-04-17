@@ -16,8 +16,8 @@ namespace Tensor {
     bool isSquareMatrix(const matrix2d& m);
 
     matrix2d addMatrix(const matrix2d& m1, const matrix2d& m2);
-    matrix2d diffMatrix(const matrix2d& m1, const matrix2d& m2);
-    matrix2d productMatrix(const matrix2d& m1, const matrix2d& m2);
+    matrix2d subtractMatrix(const matrix2d& m1, const matrix2d& m2);
+    matrix2d multiplyMatrix(const matrix2d& m1, const matrix2d& m2);
 
     matrix2d getMinor(const matrix2d& m, int row, int col);
     double determinant(const matrix2d& m);
