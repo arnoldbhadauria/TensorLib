@@ -10,6 +10,7 @@ using std::cerr;
 
 namespace Tensor{
 
+// check for matrix validity
 bool checkMatrixValidity(const matrix2d& m){
     int n = m[0].size();
     for(int i = 0; i < m.size(); ++i){
@@ -20,7 +21,7 @@ bool checkMatrixValidity(const matrix2d& m){
     }
     return true;
 }
-
+// check dimensionally equivalent matrices
 bool equivalence(const matrix2d& m1, const matrix2d& m2){
     if(checkMatrixValidity(m1) && checkMatrixValidity(m2)){
         if(m1.size() == m2.size() && m1[0].size() == m2[0].size()){
@@ -30,7 +31,7 @@ bool equivalence(const matrix2d& m1, const matrix2d& m2){
     }
     return false;
 }
-
+// dimensionality check for multiplication
 bool canMultiply(const matrix2d& m1, const matrix2d& m2){
     if(checkMatrixValidity(m1) && checkMatrixValidity(m2)){
         if(m1[0].size() == m2.size()){
@@ -40,7 +41,7 @@ bool canMultiply(const matrix2d& m1, const matrix2d& m2){
     }
     return false;
 }
-
+// check for square matrix
 bool isSquareMatrix(const matrix2d& m){
     if(checkMatrixValidity(m)){
         if(m.size() == m[0].size()){
@@ -50,9 +51,20 @@ bool isSquareMatrix(const matrix2d& m){
     }
     return false;
 }
+// convert 1d matrix into 2d matrix
+matrix2d get2dMatrix(matrix m){
+    matrix2d m3(m.size(),matrix(1));
+    for(int i=0;i<m3.size();++i){
+        for(int j=0;j<m3[0].size();++j){
+            m3[i][0]=m[i];
+        }
+    }
+    return m3;
+}
 
 // ================= PUBLIC =================
 
+// addition of matrices
 matrix2d addMatrix(const matrix2d& m1, const matrix2d& m2){
     if(!equivalence(m1, m2)) return {};
 
@@ -67,8 +79,8 @@ matrix2d addMatrix(const matrix2d& m1, const matrix2d& m2){
     }
     return m3;
 }
-
-matrix2d diffMatrix(const matrix2d& m1, const matrix2d& m2){
+// subtraction of matrices
+matrix2d subtractMatrix(const matrix2d& m1, const matrix2d& m2){
     if(!equivalence(m1, m2)) return {};
 
     int r = m1.size();
@@ -82,8 +94,8 @@ matrix2d diffMatrix(const matrix2d& m1, const matrix2d& m2){
     }
     return m3;
 }
-
-matrix2d productMatrix(const matrix2d& m1, const matrix2d& m2){
+// multiplication of matrices
+matrix2d multiplyMatrix(const matrix2d& m1, const matrix2d& m2){
     if(!canMultiply(m1, m2)) return {};
 
     int r = m1.size();
@@ -100,7 +112,17 @@ matrix2d productMatrix(const matrix2d& m1, const matrix2d& m2){
     }
     return m3;
 }
+// scalar product of matrices
+matrix2d scalarProduct(matrix2d& m, double scalar){
+    for(auto &row : m){
+        for(auto &val : row){
+            val *= scalar;
+        }
+    }
+    return m;
+}
 
+// minor
 matrix2d getMinor(const matrix2d& m, int row, int col){
     int n = m.size();
     matrix2d minor(n - 1, matrix(n - 1));
@@ -118,7 +140,7 @@ matrix2d getMinor(const matrix2d& m, int row, int col){
     }
     return minor;
 }
-
+// determinant
 double determinant(const matrix2d& m){
     if(!isSquareMatrix(m)) return NAN;
 
@@ -138,7 +160,7 @@ double determinant(const matrix2d& m){
 
     return det;
 }
-
+// adjoint
 matrix2d adjointMatrix(const matrix2d& mat){
     int n = mat.size();
     matrix2d adj(n, matrix(n));
@@ -152,7 +174,7 @@ matrix2d adjointMatrix(const matrix2d& mat){
     }
     return adj;
 }
-
+// inverse
 matrix2d inverseMatrix(const matrix2d& m){
     if(!checkMatrixValidity(m)) return {};
 
@@ -167,6 +189,7 @@ matrix2d inverseMatrix(const matrix2d& m){
     return adj;
 }
 
+// transpose
 void transpose(matrix2d& m){
     int r = m.size();
     int c = m[0].size();
@@ -180,15 +203,7 @@ void transpose(matrix2d& m){
         }
     }
 }
-
-void scalarProduct(matrix2d& m, double scalar){
-    for(auto &row : m){
-        for(auto &val : row){
-            val *= scalar;
-        }
-    }
-}
-
+// printing matrices
 void printVector(const matrix2d& arr){
     cout << "{\n";
     for(const auto& row : arr){
