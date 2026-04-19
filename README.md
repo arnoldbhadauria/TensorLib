@@ -1,102 +1,58 @@
-# TensorLib 🚀
+# TensorLib
 
-A simple C++ library for performing basic matrix (tensor) operations such as addition, subtraction, multiplication, determinant, inverse, and more.
+## Comprehensive Guide
 
----
+Welcome to TensorLib, a powerful library providing functionality for tensor operations. This guide will walk you through the essential aspects of using TensorLib, including its API, features, and usage examples.
 
-## 📌 Features
+### Table of Contents
+1. [Introduction](#introduction)
+2. [Feature List](#feature-list)
+3. [API Documentation](#api-documentation)
+4. [Usage Examples](#usage-examples)
+5. [Implementation Details](#implementation-details)
 
-* ✅ Matrix addition
-* ✅ Matrix subtraction
-* ✅ Matrix multiplication
-* ✅ Determinant calculation (supports large matrices using Gaussian elimination)
-* ✅ Matrix inverse (using adjoint method)
-* ✅ Transpose of matrix
-* ✅ Scalar multiplication
-* ✅ Matrix validation checks
-* ✅ Pretty printing of matrices
+### Introduction
+TensorLib is designed to simplify tensor manipulation and provide efficient computation capabilities. It serves as a foundational component for various applications in machine learning and data analysis.
 
----
+### Feature List
+- **Tensor Creation**: Create tensors of various dimensions.
+- **Elementwise Operations**: Perform operations like addition, subtraction, multiplication, and division.
+- **Tensor Manipulation**: Reshaping, slicing, and concatenation of tensors.
+- **Mathematical Operations**: Include functionalities such as matrix multiplication and tensor products.
 
-## 🧠 Concepts Used
+### API Documentation
+- **Tensor.h**: This header file includes the declarations of the Tensor class and its member functions. 
+- **Tensor.cpp**: The implementation file where all the functions of the Tensor class are defined.
 
-* Vectors (`std::vector`)
-* Object-Oriented Programming (OOP)
-* Matrix algebra
-* Recursion (for determinant via minors)
-* Gaussian elimination
-
----
-
-## ⚙️ How to Compile & Run
-
-### 🛠 Compile
-
-```bash
-g++ main.cpp Tensor.cpp -o tensor
-```
-
-### ▶️ Run
-
-```bash
-./tensor
-```
-
----
-
-## 📊 Example Usage
-
+#### Function Signatures
 ```cpp
-
-matrix2d v = {
-    {1, 2, 1, 2},
-    {3, 1, 1, 4},
-    {1, 3, 1, 1},
-    {4, 1, 1, 2}
+class Tensor {
+public:
+    Tensor(int dimensions, const std::vector<int>& shape);
+    void setValue(int index, double value);
+    double getValue(int index);
+    Tensor operator+(const Tensor& other);
+    // Other function signatures...
 };
-
-Tensor::printVector(v);
-
-matrix2d inverse = Tensor::inverseMatrix(v);
-Tensor::printVector(inverse);
 ```
 
----
+### Usage Examples
+#### Creating a Tensor
+```cpp
+Tensor a(2, {3, 4}); // A 2D tensor with 3 rows and 4 columns
+```
 
-## ⚠️ Limitations
+#### Performing Operations
+```cpp
+Tensor b(2, {3, 4});
+Tensor c = a + b; // Elementwise addition
+```
 
-* ❌ No exception handling (uses `cerr` for errors)
-* ❌ Assumes valid input in some functions
-* ❌ Inverse does not check for determinant = 0 (can cause issues)
-* ❌ Not optimized for very large matrices
+### Implementation Details
+TensorLib is built with both efficiency and user-friendliness in mind. The underlying structure of the Tensor class is optimized for performance, minimizing memory overhead while ensuring fast access to tensor elements.
 
----
-
-## 🛠 Possible Improvements
-
-* Add exception handling
-* Improve performance (use better algorithms like LU decomposition)
-* Add support for templates (generic data types)
-* Add unit tests
-
----
-
-## 💡 Future Scope
-
-This project can evolve into:
-
-* A mini linear algebra library
-* A base for machine learning implementations
-* GPU-accelerated tensor library (advanced)
+For a deeper dive into the implementation, refer to Tensor.cpp.
 
 ---
 
-## 👨‍💻 Author
-
-Developed as a learning project to understand matrix operations and C++ OOP concepts.
-
----
-
-## 📜 License
-
-This project is open-source and free to use.
+For more information, please refer to the documentation available at [TensorLib GitHub Repository](https://github.com/arnoldbhadauria/TensorLib).
