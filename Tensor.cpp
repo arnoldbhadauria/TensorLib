@@ -154,13 +154,17 @@ matrix2d multiplyMatrix(const matrix2d& m1, const matrix2d& m2){
     return m3;
 }
 // scalar product of matrices
-matrix2d scalarProduct(matrix2d& m, double scalar){
-    for(auto &row : m){
-        for(auto &val : row){
-            val *= scalar;
+matrix2d scalarProduct(const matrix2d& m, double scalar){
+    int r=m.size();
+    int c=m[0].size();
+
+    matrix2d temp(r,matrix(c));
+    for(int i=0;i<r;++i){
+        for(int j=0;j<c;++j){
+            temp[i][j]=m[i][j]*scalar;
         }
     }
-    return m;
+    return temp;
 }
 
 // minor
@@ -231,16 +235,15 @@ matrix2d inverseMatrix(const matrix2d& m){
 }
 
 // transpose
-matrix2d transpose(matrix2d& m){
+matrix2d transpose(const matrix2d& m){
     int r = m.size();
     int c = m[0].size();
 
-    matrix2d temp = m;
-    m = matrix2d(c, matrix(r));
+    matrix2d temp(c, matrix(r));
 
     for(int i = 0; i < r; ++i){
         for(int j = 0; j < c; ++j){
-            m[j][i] = temp[i][j];
+            temp[j][i] = m[i][j];
         }
     }
     return temp;
