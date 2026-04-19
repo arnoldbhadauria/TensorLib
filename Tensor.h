@@ -26,7 +26,7 @@ namespace Tensor {
     matrix2d addMatrix(const matrix2d& m1, const matrix2d& m2);
     matrix2d subtractMatrix(const matrix2d& m1, const matrix2d& m2);
     matrix2d multiplyMatrix(const matrix2d& m1, const matrix2d& m2);
-    matrix2d scalarProduct(matrix2d& m, double scalar);
+    matrix2d scalarProduct(const matrix2d& m, double scalar);
 
     matrix2d getMinor(const matrix2d& m, int row, int col);
     double determinant(const matrix2d& m);
@@ -34,7 +34,7 @@ namespace Tensor {
     matrix2d adjointMatrix(const matrix2d& mat);
     matrix2d inverseMatrix(const matrix2d& m);
 
-    matrix2d transpose(matrix2d& m);
+    matrix2d transpose(const matrix2d& m);
 
     void printVector(const matrix2d& arr);
     
