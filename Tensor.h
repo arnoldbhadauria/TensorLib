@@ -1,19 +1,27 @@
-#ifndef TENSOR_H
-#define TENSOR_H
+#pragma once
 
 #include <vector>
 #include <string>
 
-typedef std::vector<double> matrix;
-typedef std::vector<std::vector<double>> matrix2d;
+using matrix = std::vector<double>;
+using matrix2d =  std::vector<std::vector<double>>;
 
 namespace Tensor {
+
+    enum Mode{
+        VERTICAL,
+        HORIZONTAL
+    };
 
     bool checkMatrixValidity(const matrix2d& m);
     bool equivalence(const matrix2d& m1, const matrix2d& m2);
     bool canMultiply(const matrix2d& m1, const matrix2d& m2);
     bool isSquareMatrix(const matrix2d& m);
-    matrix2d get2dMatrix(matrix m);
+
+    matrix2d get2dMatrix(const matrix& m, Mode axis);
+    double getRandom(double min, double max);
+    matrix2d randomMatrix(int rows, int columns, double min, double max);
+    std::pair<int,int> shapeOfMatrix(matrix2d m);
 
     matrix2d addMatrix(const matrix2d& m1, const matrix2d& m2);
     matrix2d subtractMatrix(const matrix2d& m1, const matrix2d& m2);
@@ -26,10 +34,8 @@ namespace Tensor {
     matrix2d adjointMatrix(const matrix2d& mat);
     matrix2d inverseMatrix(const matrix2d& m);
 
-    void transpose(matrix2d& m);
+    matrix2d transpose(matrix2d& m);
 
     void printVector(const matrix2d& arr);
     
 };
-
-#endif
