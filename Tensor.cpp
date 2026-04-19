@@ -1,10 +1,12 @@
 #include "Tensor.h"
 #include <iostream>
 #include <cmath>
+#include<random>
 
 using std::cout;
 using std::endl;
 using std::cerr;
+
 
 // ================= PRIVATE =================
 
@@ -52,14 +54,53 @@ bool isSquareMatrix(const matrix2d& m){
     return false;
 }
 // convert 1d matrix into 2d matrix
-matrix2d get2dMatrix(matrix m){
-    matrix2d m3(m.size(),matrix(1));
-    for(int i=0;i<m3.size();++i){
-        for(int j=0;j<m3[0].size();++j){
-            m3[i][0]=m[i];
+matrix2d get2dMatrix(const matrix& m, Mode axis){
+    matrix2d m3;
+    if(axis==VERTICAL){
+        m3.resize(m.size(), matrix(1));
+        for(int i=0;i<m3.size();++i){
+            for(int j=0;j<m3[0].size();++j){
+                m3[i][0]=m[i];
+            }
+        }
+        return m3;
+    }else if(axis==HORIZONTAL){
+        m3.resize(1,matrix(m.size()));
+        for(int i=0;i<m3.size();++i){
+            for(int j=0;j<m3[0].size();++j){
+                m3[0][j]=m[j];
+            }
+        }
+        return m3;
+    }else{
+        cerr<<"Matrix Mode :: Mode is not defined properly.\n";
+        return {};
+    }
+}
+// getting the shape of the matrix
+std::pair<int, int> shapeOfMatrix(const matrix2d& m){
+    if (m.empty() || m[0].empty()) return {0, 0};
+    return {m.size(),m[0].size()};
+}
+
+// generates random number between min & max
+double getRandom(double min, double max) {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+
+    std::uniform_real_distribution<> dist(min, max);
+    return dist(gen);
+}
+
+// returns a random matrix
+matrix2d randomMatrix(int rows, int columns, double min, double max){
+    matrix2d m(rows,matrix(columns));
+    for(int i=0;i<rows;++i){
+        for(int j=0;j<columns;++j){
+            m[i][j]=getRandom(min,max);
         }
     }
-    return m3;
+    return m;
 }
 
 // ================= PUBLIC =================
@@ -190,7 +231,7 @@ matrix2d inverseMatrix(const matrix2d& m){
 }
 
 // transpose
-void transpose(matrix2d& m){
+matrix2d transpose(matrix2d& m){
     int r = m.size();
     int c = m[0].size();
 
@@ -202,6 +243,7 @@ void transpose(matrix2d& m){
             m[j][i] = temp[i][j];
         }
     }
+    return temp;
 }
 // printing matrices
 void printVector(const matrix2d& arr){
